@@ -1,7 +1,18 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+  	<h1>Witaj w systemie do zapisow</h1>
+    
+    <div v-if="isAuntenthicated">
+    	<h1>Witaj {{ email }}</h1>
+    	<button @click="logMeOut">Wyloguj</button>
+    </div>
+    <div v-else>
+    	<input type="text" v-model="email">
+    	<button @click="logMeIn()">Zaloguj sie</button>
+    	<div v-if="email.length < 10">Ale masz krótki adres!</div>
+    	<div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>
+    	<div v-else>Twój adres e-mail jest stanowczo za długi.</div>
+    </div>
   </div>
 </template>
 
@@ -9,10 +20,26 @@
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  data() {
+	  return {
+		  email: 'olakatosz@mail.com',
+		  password: 'supersecretpassword',
+		  isAuntenthicated: false
+	  };
+  },
+    methods: {
+    alertMyEmail() {
+      alert(this.email);
+    },
+    logMeIn() {
+    	this.isAuntenthicated = true;
+    },
+    logMeOut() {
+    	this.isAuntenthicated = false;
+    	this.email = '';
+    }
   }
+  
 }
 </script>
 
