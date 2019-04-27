@@ -2,43 +2,46 @@
   <div>
   	<h1>Witaj w systemie do zapisow</h1>
     
-    <div v-if="isAuntenthicated">
+    <div v-if="email.length > 0">
     	<h1>Witaj {{ email }}</h1>
     	<button @click="logMeOut">Wyloguj</button>
     </div>
+    
     <div v-else>
-    	<input type="text" v-model="email">
-    	<button @click="logMeIn()">Zaloguj sie</button>
-    	<div v-if="email.length < 10">Ale masz krótki adres!</div>
-    	<div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>
-    	<div v-else>Twój adres e-mail jest stanowczo za długi.</div>
+    	<!-- uzycie komponentu LoginForm, trzeba dodac drugi argument logforma - $event -->
+    	<!-- jakbym chciala label czy header byl ewaluowany jako js to daje :header="2+2" i da mi 4 -->
+	    <login-form @login="logMeIn($event)" :button-label="'Lece'" :header="2 + 2"></login-form>
+	    <login-form @login="logMeIn($event)" :button-label="'Wlec'" header="2 + 2"></login-form>
+		<login-form @login="logMeIn($event)" :button-label="'Zaloguj sie jak czlowiek'" header="Zaloguj sie"></login-form>
+	    
     </div>
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import "milligram";
+import LoginForm from "./components/LoginForm.vue";
 
 export default {
+  components: { LoginForm },
   data() {
 	  return {
-		  email: 'olakatosz@mail.com',
+		  email: '',
 		  password: 'supersecretpassword',
-		  isAuntenthicated: false
 	  };
   },
     methods: {
     alertMyEmail() {
       alert(this.email);
     },
-    logMeIn() {
-    	this.isAuntenthicated = true;
+    logMeIn(username) {
+    	this.email = username;
     },
     logMeOut() {
-    	this.isAuntenthicated = false;
     	this.email = '';
     }
-  }
+  },
   
 }
 </script>
