@@ -21,6 +21,6 @@ export default {
      enter() {
          this.$emit('login', this.email);
      }
- }
+  }
 }
 </script>
