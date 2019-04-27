@@ -1,15 +1,13 @@
 <template>
   <div>
-  	<h1>Witaj w systemie do zapisow</h1>
+  	<h1>Witaj w systemie do zapisów</h1>
     
     <div v-if="email.length > 0">
     	<logged-in-page :username="email" @logout="logMeOut()"></logged-in-page>
     </div>
     
     <div v-else>
-    	<!-- uzycie komponentu LoginForm, trzeba dodac drugi argument logforma - $event -->
-    	<!-- jakbym chciala label czy header byl ewaluowany jako js to daje :header="2+2" i da mi 4 -->
-	    <login-form @login="logMeIn($event)" :button-label="'Zaloguj sie'" header="Logowanie"></login-form>
+	    <login-form @login="logMeIn($event)" :button-label="'Zaloguj się'" header="Logowanie"></login-form>
     </div>
     
   </div>
